@@ -1,0 +1,12 @@
+{
+  "default-runtime": "runc-hooked",
+  "runtimes": {
+    "runc-hooked": {
+      "path": "oci-add-hooks",
+      "runtimeArgs": [
+        "--hook-config-path", "/etc/seccomp-profiler/oci-hooks.json",
+        "--runtime-path", "/usr/bin/runc"
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "prestart": [
+      {"path": "/usr/local/libexec/oci/hooks.d/seccomp-profiler"}
+    ]
+  }
+}
