@@ -12,7 +12,11 @@ typedef unsigned long long  __u64;
 struct sys_enter_ctx {
     __u64 _pad;
     __s64 id;
+    __u64 args[6];
 };
+
+#define __NR_prctl          157
+#define PR_SET_NO_NEW_PRIVS  38
 
 /*
  * Set of cgroup v2 IDs that are currently being profiled.
@@ -58,6 +62,9 @@ int trace_sys_enter(struct sys_enter_ctx *ctx)
 
     __s64 nr = ctx->id;
     if (nr < 0 || nr >= 512)
+        return 0;
+
+    if (nr == __NR_prctl && ctx->args[0] == PR_SET_NO_NEW_PRIVS)
         return 0;
 
     struct cgid_syscall_key key = { .cgid = cgid, .nr = (__u32)nr };
