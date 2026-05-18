@@ -59,12 +59,10 @@ install: $(HOOK_BINARY)
 
 # ── Dependency installation helpers ──────────────────────────────────────────
 
-install-deps-debian:
-	apt-get install -y clang llvm libbpf-dev linux-libc-dev
-
-install-deps-rhel:
+install-deps:
+	dnf config-manager --set-enabled crb
 	dnf install -y clang llvm libbpf-devel kernel-headers golang
-	GOPATH=/usr/local go install github.com/awslabs/oci-add-hooks@latest
+	go install github.com/awslabs/oci-add-hooks@latest
 
 # ── Clean ─────────────────────────────────────────────────────────────────────
 
